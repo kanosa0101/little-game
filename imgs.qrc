@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/roles">
+        <file>Images/idle.png</file>
+        <file>Images/jump.png</file>
+        <file>Images/Right - Walking_000.png</file>
+        <file>Images/Right - Walking_001.png</file>
+        <file>Images/Right - Walking_002.png</file>
+        <file>Images/Right - Walking_003.png</file>
+        <file>Images/Right - Walking_004.png</file>
+        <file>Images/Right - Walking_005.png</file>
+        <file>Images/Right - Walking_006.png</file>
+        <file>Images/Right - Walking_007.png</file>
+        <file>Images/Right - Walking_008.png</file>
+        <file>Images/Right - Walking_009.png</file>
+        <file>Images/Right - Walking_010.png</file>
+        <file>Images/Right - Walking_011.png</file>
+        <file>Images/Right - Walking_012.png</file>
+        <file>Images/Right - Walking_013.png</file>
+        <file>Images/Right - Walking_014.png</file>
+        <file>Images/Right - Walking_015.png</file>
+        <file>Images/Right - Walking_016.png</file>
+        <file>Images/Right - Walking_017.png</file>
+        <file>Images/Left - Walking_000.png</file>
+        <file>Images/Left - Walking_001.png</file>
+        <file>Images/Left - Walking_002.png</file>
+        <file>Images/Left - Walking_003.png</file>
+        <file>Images/Left - Walking_004.png</file>
+        <file>Images/Left - Walking_005.png</file>
+        <file>Images/Left - Walking_006.png</file>
+        <file>Images/Left - Walking_007.png</file>
+        <file>Images/Left - Walking_008.png</file>
+        <file>Images/Left - Walking_009.png</file>
+        <file>Images/Left - Walking_010.png</file>
+        <file>Images/Left - Walking_011.png</file>
+        <file>Images/Left - Walking_012.png</file>
+        <file>Images/Left - Walking_013.png</file>
+        <file>Images/Left - Walking_014.png</file>
+        <file>Images/Left - Walking_015.png</file>
+        <file>Images/Left - Walking_016.png</file>
+        <file>Images/Left - Walking_017.png</file>
+    </qresource>
+    <qresource prefix="/background">
+        <file>Images/ground.png</file>
+        <file>Images/Background.png</file>
+
+    </qresource>
+</RCC>
