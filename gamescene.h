@@ -36,6 +36,7 @@ private:
 
     void setupScene();
     void loadAnimations();
+    bool m_attackKeyPressed = false;  // 跟踪攻击键是否已被按下
 };
 
 #endif // GAMESCENE_H

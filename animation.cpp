@@ -33,3 +33,4 @@ void Animation::reset() {
 bool Animation::isEmpty() const {
     return m_frames.isEmpty();
 }
+

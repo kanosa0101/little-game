@@ -15,11 +15,15 @@ public:
     void reset();
     bool isEmpty() const;
 
+    int getCurrentFrameIndex() const { return m_currentFrame; }
+    int getTotalFrames() const { return m_frames.size(); }
+
 private:
     QList<QPixmap> m_frames;
     int m_currentFrame;
     int m_frameCounter;
     int m_frameDelay;
+
 };
 
 #endif // ANIMATION_H

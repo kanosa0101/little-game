@@ -21,7 +21,7 @@ GameScene::GameScene(QObject *parent)
     // 游戏循环
     m_gameTimer = new QTimer(this);
     connect(m_gameTimer, &QTimer::timeout, this, &GameScene::gameUpdate);
-    m_gameTimer->start(18); // ~60 FPS
+    m_gameTimer->start(1000 / 90); // ~60 FPS
 
     connect(this, &GameScene::returnToMainMenu, [this]() {
         m_character->setPos(100, 300); // 重置角色位置
@@ -91,9 +91,33 @@ void GameScene::loadAnimations() {
         walkLeftFrames.append(frame);
     }
 
+    // 加载向右攻击动画 (9帧)
+    QList<QPixmap> slashRightFrames;
+    for(int i = 0; i < 8; ++i) {
+        QString path = QString(":/roles/Images/Right - Slashing_%1.png").arg(i, 3, 10, QChar('0'));
+        QPixmap frame(path);
+        if(frame.isNull()) {
+            qDebug() << "Failed to load right slash frame:" << path;
+        }
+        slashRightFrames.append(frame);
+    }
+
+    // 加载向左攻击动画 (9帧)
+    QList<QPixmap> slashLeftFrames;
+    for(int i = 0; i < 8; ++i) {
+        QString path = QString(":/roles/Images/Left - Slashing_%1.png").arg(i, 3, 10, QChar('0'));
+        QPixmap frame(path);
+        if(frame.isNull()) {
+            qDebug() << "Failed to load left slash frame:" << path;
+        }
+        slashLeftFrames.append(frame);
+    }
+
     // 设置动画
     m_character->loadWalkRightAnimation(walkRightFrames);
     m_character->loadWalkLeftAnimation(walkLeftFrames);
+    m_character->loadSlashRightAnimation(slashRightFrames);
+    m_character->loadSlashLeftAnimation(slashLeftFrames);
 
     // 设置静止和跳跃动画
     m_character->loadIdleRightAnimation(QPixmap(":roles/Images/Right - Walking_000.png"));
@@ -139,6 +163,19 @@ void GameScene::gameUpdate() {
 
     if(m_pressedKeys.contains(Qt::Key_Space) || m_pressedKeys.contains(Qt::Key_W) || m_pressedKeys.contains(Qt::Key_Up)) {
         m_character->jump();
+    }
+
+    if(m_pressedKeys.contains(Qt::Key_J) && !m_attackKeyPressed){
+        m_attackKeyPressed = true;
+        if(m_character->getDirection()){
+            m_character->slashRight();
+        }
+        else{
+            m_character->slashLeft();
+        }
+    }
+    else if(!m_pressedKeys.contains(Qt::Key_J)) {
+        m_attackKeyPressed = false;  // 重置标记当J键释放
     }
 
     // 更新角色

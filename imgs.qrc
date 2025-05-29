@@ -1,7 +1,9 @@
 <RCC>
     <qresource prefix="/roles">
-        <file>Images/idle.png</file>
-        <file>Images/jump.png</file>
+
+        <file>Images/Idle.png</file>
+        <file>Images/Jump.png</file>
+
         <file>Images/Right - Walking_000.png</file>
         <file>Images/Right - Walking_001.png</file>
         <file>Images/Right - Walking_002.png</file>
@@ -20,6 +22,7 @@
         <file>Images/Right - Walking_015.png</file>
         <file>Images/Right - Walking_016.png</file>
         <file>Images/Right - Walking_017.png</file>
+
         <file>Images/Left - Walking_000.png</file>
         <file>Images/Left - Walking_001.png</file>
         <file>Images/Left - Walking_002.png</file>
@@ -38,8 +41,29 @@
         <file>Images/Left - Walking_015.png</file>
         <file>Images/Left - Walking_016.png</file>
         <file>Images/Left - Walking_017.png</file>
+
+        <file>Images/Right - Slashing_000.png</file>
+        <file>Images/Right - Slashing_001.png</file>
+        <file>Images/Right - Slashing_002.png</file>
+        <file>Images/Right - Slashing_003.png</file>
+        <file>Images/Right - Slashing_004.png</file>
+        <file>Images/Right - Slashing_005.png</file>
+        <file>Images/Right - Slashing_006.png</file>
+        <file>Images/Right - Slashing_007.png</file>
+
+        <file>Images/Left - Slashing_000.png</file>
+        <file>Images/Left - Slashing_001.png</file>
+        <file>Images/Left - Slashing_002.png</file>
+        <file>Images/Left - Slashing_003.png</file>
+        <file>Images/Left - Slashing_004.png</file>
+        <file>Images/Left - Slashing_005.png</file>
+        <file>Images/Left - Slashing_006.png</file>
+        <file>Images/Left - Slashing_007.png</file>
+
     </qresource>
+
     <qresource prefix="/background">
+
         <file>Images/ground.png</file>
         <file>Images/Background.png</file>
 
