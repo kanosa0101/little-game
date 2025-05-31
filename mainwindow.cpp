@@ -96,10 +96,11 @@ void MainWindow::setupMainMenu()
     layout->setAlignment(Qt::AlignCenter);
 }
 
-void MainWindow::startGame()
-{
-    m_stackedWidget->setCurrentIndex(1); // 切换到游戏视图
-    m_view->setFocus(); // 确保焦点在视图上
+void MainWindow::startGame() {
+    m_scene->resetGame();   // 重置游戏状态
+    m_scene->startGame();   // 启动游戏
+    m_stackedWidget->setCurrentIndex(1);
+    m_view->setFocus();
 }
 
 void MainWindow::exitGame()
@@ -112,11 +113,9 @@ MainWindow::~MainWindow()
     // 清理资源
 }
 
-void MainWindow::showMainMenu()
-{
-    m_stackedWidget->setCurrentIndex(0); // 切换回主菜单
-    m_scene->clear(); // 可选：清除场景内容
-    // 重置游戏状态等其他清理工作...
+void MainWindow::showMainMenu() {
+    m_scene->pauseGame();
+    m_stackedWidget->setCurrentIndex(0);
 }
 
 void MainWindow::showInformation(){

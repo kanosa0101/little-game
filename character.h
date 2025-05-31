@@ -45,6 +45,8 @@ public:
 
     bool getDirection() {return m_facingRight; }
 
+    void resetState() {m_currentState = Idle; }
+
 private:
 
     //移动参数

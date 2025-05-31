@@ -3,6 +3,7 @@
 #include <QKeyEvent>
 #include <QGraphicsLineItem>
 #include <QApplication>
+#include <QFile>
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(parent), m_character(nullptr) {
@@ -21,7 +22,7 @@ GameScene::GameScene(QObject *parent)
     // 游戏循环
     m_gameTimer = new QTimer(this);
     connect(m_gameTimer, &QTimer::timeout, this, &GameScene::gameUpdate);
-    m_gameTimer->start(1000 / 90); // ~60 FPS
+    //m_gameTimer->start(1000 / 90); // ~60 FPS
 
     connect(this, &GameScene::returnToMainMenu, [this]() {
         m_character->setPos(100, 300); // 重置角色位置
@@ -52,12 +53,15 @@ void GameScene::setupScene() {
     }
 
     // 添加草方块地面
-    for (int x = -512; x < 2048; x += 128) {
+    for (int x = -512; x < 8192; x += 128) {
         QGraphicsPixmapItem *block = new QGraphicsPixmapItem(grassBlock);
         block->setPos(x, 450);
         addItem(block);
         collidableItems.append(block); // 存储为 QGraphicsItem*
     }
+
+    // 设置背景音乐
+    setupBackgroundMusic();
 }
 
 void GameScene::loadAnimations() {
@@ -124,14 +128,14 @@ void GameScene::loadAnimations() {
     m_character->loadIdleLeftAnimation(QPixmap(":roles/Images/Left - Walking_000.png"));
     m_character->loadJumpAnimation(QPixmap(":roles/Images/Right - Walking_000.png"));
 }
-void GameScene::keyPressEvent(QKeyEvent *event)
-{
+
+void GameScene::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Escape) {
         emit returnToMainMenu();
         return;
     }
 
-    if(!event->isAutoRepeat()) {
+    if(!event->isAutoRepeat() && m_gameRunning) {  // 添加游戏运行检查
         m_pressedKeys.insert(event->key());
     }
     QGraphicsScene::keyPressEvent(event);
@@ -183,4 +187,66 @@ void GameScene::gameUpdate() {
 
     // 简单的相机跟随
     setSceneRect(m_character->x() - 200, 0, 800, 600);
+}
+
+
+void GameScene::setupBackgroundMusic() {
+    backgroundMusic = new QMediaPlayer(this);
+    audioOutput = new QAudioOutput(this);
+    backgroundMusic->setAudioOutput(audioOutput);
+    audioOutput->setVolume(0.3);  // 30% 音量（注意：Qt6 用 0.0~1.0）
+
+    // 调试资源文件
+    QFile file(":bgm/Music/backgroundmusic.mp3");
+    qDebug() << "音乐文件是否存在:" << file.exists() << "大小:" << file.size();
+
+    QUrl musicUrl = QUrl("qrc:bgm/Music/backgroundmusic.mp3");  // 显式使用 qrc:/
+    backgroundMusic->setSource(musicUrl);
+
+    connect(backgroundMusic, &QMediaPlayer::errorOccurred, [](auto error, auto msg) {
+        qDebug() << "音乐错误:" << error << msg;
+    });
+
+    connect(backgroundMusic, &QMediaPlayer::mediaStatusChanged, [](auto status) {
+        qDebug() << "媒体状态变化:" << status;  // 查看加载过程
+    });
+
+    backgroundMusic->setLoops(QMediaPlayer::Infinite);
+    backgroundMusic->play();
+}
+
+void GameScene::startGame() {
+    m_gameRunning = true;
+    m_gameTimer->start(1000 / 90);
+    if (backgroundMusic) {
+        backgroundMusic->play();
+    }
+}
+
+void GameScene::resetGame() {
+    // 停止所有运动
+    m_gameTimer->stop();
+    m_pressedKeys.clear();
+    m_attackKeyPressed = false;
+
+    // 重置角色
+    if (m_character) {
+        m_character->setPos(100, 300);
+        m_character->resetState();
+    }
+
+    // 重置背景音乐
+    if (backgroundMusic) {
+        backgroundMusic->stop();
+        backgroundMusic->setPosition(0); // 回到开头
+    }
+
+    // 重置相机
+    setSceneRect(m_character->x() - 400, 0, 800, 600);
+}
+
+void GameScene::pauseGame() {
+    m_gameRunning = false;
+    m_gameTimer->stop();
+    m_pressedKeys.clear();  // 清除按键状态
 }

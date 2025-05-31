@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QSet>
 #include <QGraphicsRectItem>
+#include <QAudioOutput>
+#include <QMediaPlayer>
 #include "character.h"
 
 class GameScene : public QGraphicsScene {
@@ -18,6 +20,12 @@ public:
     qreal m_sceneRight;
     qreal m_sceneTop;
     qreal m_sceneBottom;
+
+    void setupBackgroundMusic();
+
+    void resetGame();
+    void startGame();
+    void pauseGame();
 
 signals:
     void returnToMainMenu();
@@ -37,6 +45,12 @@ private:
     void setupScene();
     void loadAnimations();
     bool m_attackKeyPressed = false;  // 跟踪攻击键是否已被按下
+
+    //背景音乐
+    QMediaPlayer *backgroundMusic;
+    QAudioOutput *audioOutput;
+
+    bool m_gameRunning = false;  // 游戏运行状态
 };
 
 #endif // GAMESCENE_H

@@ -68,4 +68,10 @@
         <file>Images/Background.png</file>
 
     </qresource>
+
+    <qresource prefix="bgm">
+
+        <file>Music/backgroundmusic.mp3</file>
+
+    </qresource>
 </RCC>

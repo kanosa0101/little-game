@@ -31,6 +31,10 @@ CONFIG += embed_translations
 RESOURCES += \
     imgs.qrc
 
+QT += multimedia multimediawidgets
+
+QT += core gui multimedia
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

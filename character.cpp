@@ -118,8 +118,8 @@ void Character::update() {
     if(newX < -256){
         newX = -256;
     }
-    else if(newX > 1792){
-        newX = 1792;
+    else if(newX > 7936){
+        newX = 7936;
     }
     qreal newY = y() + m_velocityY;
 
